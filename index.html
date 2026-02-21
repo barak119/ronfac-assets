@@ -2,50 +2,27 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>최고의비서 - 영업 데이터베이스 자동관리 프로그램</title>
   <style>
-    body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; background-color: #111; position: relative; }
-    
-    /* 구글 배너 제거용 */
-    iframe {
-      width: 100vw; border: none; margin-top: -35px; height: calc(100vh + 35px);
-      display: block; opacity: 0; transition: opacity 0.5s ease; /* 로딩 전까지 숨김 */
-    }
-
-    /* 로딩 스피너 (론팩 주황색) */
-    .loader-wrap {
-      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      background-color: #111; z-index: 100;
-    }
-    .spinner {
-      width: 50px; height: 50px; border: 3px solid rgba(255,255,255,0.1);
-      border-top: 3px solid #ff7a2e; border-radius: 50%;
-      animation: spin 1s linear infinite; margin-bottom: 20px;
-    }
-    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-    .loading-text { color: #fff; font-family: sans-serif; font-size: 14px; letter-spacing: 1px; opacity: 0.7; }
+    body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #111; }
+    iframe { position: absolute; top: -35px; left: 0; width: 100%; height: calc(100% + 35px); border: none; display: block; }
   </style>
+  <script>
+    // [마법의 코드] 토스 결제 후 액자 안으로 갇혀서 돌아오면, 액자를 부수고 밖으로 나옵니다!
+    if (window !== window.top && window.location.search.includes('page=')) {
+      window.top.location.href = window.location.href;
+    }
+  </script>
 </head>
 <body>
-  <div class="loader-wrap" id="loader">
-    <div class="spinner"></div>
-    <div class="loading-text">RONFAC SYSTEM LOADING...</div>
-  </div>
-
-  <iframe src="https://script.google.com/macros/s/AKfycbyPym_zDupBeai_FMgAqG4CCN2FXiJXB-twbTxgp9jh-mibhqx2WX3TvrKFHg6aiZyh/exec" id="mainFrame" onload="showFrame()"></iframe>
-
+  <iframe id="mainFrame"></iframe>
   <script>
-    function showFrame() {
-      document.getElementById('mainFrame').style.opacity = '1';
-      document.getElementById('loader').style.display = 'none';
-    }
+    // ✅ 여기에 대표님의 진짜 구글 스크립트 웹앱 주소를 넣어주세요!
+    const gasUrl = "https://script.google.com/macros/s/AKfycbyPym_zDupBeai_FMgAqG4CCN2FXiJXB-twbTxgp9jh-mibhqx2WX3TvrKFHg6aiZyh/exec";
+    
+    // 부모창이 받은 파라미터(결제성공/실패 등)를 구글 액자로 안전하게 넘겨줍니다.
+    document.getElementById('mainFrame').src = gasUrl + window.location.search;
   </script>
 </body>
 </html>
-
-
-
-
-
