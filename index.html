@@ -5,27 +5,54 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>최고의비서 - 영업 데이터베이스 자동관리 프로그램</title>
   <style>
-    body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #111; }
-    iframe { position: absolute; top: -35px; left: 0; width: 100%; height: calc(100% + 35px); border: none; display: block; }
+    body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #111; position: relative; }
+    
+    iframe {
+      position: absolute; top: -35px; left: 0;
+      width: 100%; height: calc(100% + 35px);
+      border: none; display: block;
+      opacity: 0; transition: opacity 0.5s ease;
+    }
+
+    #loader {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      background-color: #111; z-index: 9999;
+    }
+    .spinner {
+      width: 50px; height: 50px; border: 3px solid rgba(255,255,255,0.1);
+      border-top: 3px solid #ff7a2e; border-radius: 50%;
+      animation: spin 1s linear infinite; margin-bottom: 20px;
+    }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    .loading-text { color: #fff; font-family: sans-serif; font-size: 13px; letter-spacing: 2px; opacity: 0.6; font-weight: 300; }
   </style>
   <script>
-    // [마법의 코드] 토스 결제 후 액자 안으로 갇혀서 돌아오면, 액자를 부수고 밖으로 나옵니다!
+    // 🌟 [핵심 마법] 토스가 깃허브 액자 안으로 돌려보냈다면, 화면을 통째로 탈출시켜 바깥에서 열리게 합니다!
     if (window !== window.top && window.location.search.includes('page=')) {
       window.top.location.href = window.location.href;
     }
   </script>
 </head>
 <body>
-  <iframe id="mainFrame"></iframe>
+  <div id="loader">
+    <div class="spinner"></div>
+    <div class="loading-text">RONFAC SYSTEM LOADING...</div>
+  </div>
+
+  <iframe id="mainFrame" onload="onFrameLoad()"></iframe>
+
   <script>
-    // ✅ 여기에 대표님의 진짜 구글 스크립트 웹앱 주소를 넣어주세요!
-    const gasUrl = "https://script.google.com/macros/s/AKfycbyo4YNCFCvED0ZYCNghxCrgjq4Bf2MLhApfOCAzt53x8_GZrPlbv5BmX7u8ohuHu-c/exec";
+    function onFrameLoad() {
+      document.getElementById('mainFrame').style.opacity = '1';
+      document.getElementById('loader').style.display = 'none';
+    }
+
+    // ✅ 여기에 대표님의 진짜 구글 앱스 스크립트 배포 주소를 넣어주세요!!!
+    const gasUrl = "https://script.google.com/macros/s/AKfycbzsXXUpEe3lQf4y05XzsgZisJa8dtQKQOXPtc1hTFKtVUY-JFI6nGtL-vP2maS_xGcv/exec";
     
-    // 부모창이 받은 파라미터(결제성공/실패 등)를 구글 액자로 안전하게 넘겨줍니다.
+    // 깃허브 주소에 붙은 성공/실패 꼬리표를 구글 웹앱에 그대로 전달합니다!
     document.getElementById('mainFrame').src = gasUrl + window.location.search;
   </script>
 </body>
 </html>
-
-
-
